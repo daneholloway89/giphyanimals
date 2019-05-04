@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Animals</title>
+
+  <style>
+  
+  </style>
+</head>
+<body>
+
+    <form>
+        <span id="searchBar">Search: <input id="searchItem" type="text" ><input id="add-search" value="Add Item" type="submit"></span>
+      </form>
+  <div id="buttonsDiv">
+      <button id="penguin-but">Penguins</button>
+      <button id="yoga-but">Yoga</button>
+      <button id="broccoli-but">Broccoli</button>
+      <button id="running-but">Running</button>
+      <button id="dogs-but">Dogs</button>
+      <br>
+      <p>^^Was able to get these buttons to work but still working on the buttons created with for loop. Search bar is adding duplicate buttons to array.</p>
+  </div> 
+
+  <div id="buttonsDiv2"></div>
+  </div>
+  <div id="gifs"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+//Array for interests
+var interest = ['penguins', 'yoga', 'broccoli', 'running', 'dogs'];
+
+var searchTerm = $("#searchItem").val().trim();
+
+      interest.push(searchTerm);
+
+      console.log(interest);
+
+      $("#add-search").on("click", function(event) {
+        // event.preventDefault() prevents the form from trying to submit itself.
+        // We're using a form so that the user can hit enter instead of clicking the button if they want
+        event.preventDefault();
+
+        // This line will grab the text from the input box
+        var newInterest = $("#searchItem").val().trim();
+        // The movie from the textbox is then added to our array
+        interest.push(newInterest);
+        console.log(interest);
+
+      });
+
+
+function renderButtons() {
+
+// Deleting the movie buttons prior to adding new movie buttons
+// (this is necessary otherwise we will have repeat buttons)
+$("#buttonsDiv2").empty();
+
+// Looping through the array of movies
+for (var i = 0; i < interest.length; i++) {
+
+  // Then dynamicaly generating buttons for each movie in the array.
+  // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+  var a = $("<button>");
+  // Adding a class
+  a.addClass("myinterest");
+  // Adding a data-attribute with a value of the movie at index i
+  a.attr("data-name", interest[i]);
+  // Providing the button's text with a value of the movie at index i
+  a.text(interest[i]);
+  // Adding the button to the HTML
+  $("#buttonsDiv2").append(a);
+  }
+}
+
+
+      // This function handles events where one button is clicked
+  $("#add-search").on("click", function(event) {
+        // event.preventDefault() prevents the form from trying to submit itself.
+        // We're using a form so that the user can hit enter instead of clicking the button if they want
+    event.preventDefault();
+
+        // This line will grab the text from the input box
+        var newInterest = $("#searchItem").val().trim();
+        // The movie from the textbox is then added to our array
+        interest.push(newInterest);
+
+        // calling renderButtons which handles the processing of our movie array
+        renderButtons();
+      });
+
+      // Calling the renderButtons function at least once to display the initial list of movies
+      renderButtons();
+
+
+
+  $("#penguin-but").on("click", function() {
+
+  // Storing our giphy API URL for a random penguin image
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=Jt6wOxuz4pTRqXNm5Sp1KrL9tNiMQD3D&tag=penguins";
+
+  $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      // After the data from the AJAX request comes back
+        .then(function(response) {
+
+        // Saving the image_original_url property
+          var imageUrl = response.data.image_original_url;
+
+          // Creating and storing an image tag
+          var penguinImage = $("<img>");
+
+          penguinImage.attr("src", imageUrl);
+          penguinImage.attr("alt", "penguin image");
+
+          // Prepending the penguinImage to the gifs div
+          $("#gifs").prepend(penguinImage);
+        });
+      });
+
+  $("#yoga-but").on("click", function() {
+
+// Storing our giphy API URL for a random yoga image
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=Jt6wOxuz4pTRqXNm5Sp1KrL9tNiMQD3D&tag=yoga";
+
+  $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      // After the data from the AJAX request comes back
+        .then(function(response) {
+
+        // Saving the image_original_url property
+          var imageUrl = response.data.image_original_url;
+
+          // Creating and storing an image tag
+          var yogaImage = $("<img>");
+
+          yogaImage.attr("src", imageUrl);
+          yogaImage.attr("alt", "yoga image");
+
+          // Prepending the catImage to the images div
+          $("#gifs").prepend(yogaImage);
+        });
+      });
+
+  $("#broccoli-but").on("click", function() {
+
+// Storing our giphy API URL for a random broccoli image
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=Jt6wOxuz4pTRqXNm5Sp1KrL9tNiMQD3D&tag=broccoli";
+
+  $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      // After the data from the AJAX request comes back
+        .then(function(response) {
+
+        // Saving the image_original_url property
+          var imageUrl = response.data.image_original_url;
+
+          // Creating and storing an image tag
+          var brocImage = $("<img>");
+
+          brocImage.attr("src", imageUrl);
+          brocImage.attr("alt", "broccoli image");
+
+          // Prepending the brocImage to the images div
+          $("#gifs").prepend(brocImage);
+        });
+      });
+
+  $("#running-but").on("click", function() {
+
+// Storing our giphy API URL for a random trail running image
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=Jt6wOxuz4pTRqXNm5Sp1KrL9tNiMQD3D&tag=trail_running";
+
+  $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      // After the data from the AJAX request comes back
+        .then(function(response) {
+
+        // Saving the image_original_url property
+          var imageUrl = response.data.image_original_url;
+
+          // Creating and storing an image tag
+          var runningImage = $("<img>");
+
+          runningImage.attr("src", imageUrl);
+          runningImage.attr("alt", "running image");
+
+          // Prepending the catImage to the images div
+          $("#gifs").prepend(runningImage);
+        });
+      });
+
+  $("#dogs-but").on("click", function() {
+
+// Storing our giphy API URL for a random dogs image
+  var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=Jt6wOxuz4pTRqXNm5Sp1KrL9tNiMQD3D&tag=dogs";
+
+  $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+      // After the data from the AJAX request comes back
+        .then(function(response) {
+
+        // Saving the image_original_url property
+          var imageUrl = response.data.image_original_url;
+
+          // Creating and storing an image tag
+          var dogImage = $("<img>");
+
+          dogImage.attr("src", imageUrl);
+          dogImage.attr("alt", "dog image");
+
+          // Prepending the catImage to the images div
+          $("#gifs").prepend(dogImage);
+        });
+      });
+
+    
+
+  </script>
+</body>
+
+</html>
